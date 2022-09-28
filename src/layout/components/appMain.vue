@@ -134,6 +134,8 @@ const transitionMain = defineComponent({
   height: 100vh;
   position: relative;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .app-main-nofixed-header {
@@ -143,6 +145,7 @@ const transitionMain = defineComponent({
 }
 
 .main-content {
-  margin: 24px;
+  /* margin: 24px; */
+  padding: 24px;
 }
 </style>
