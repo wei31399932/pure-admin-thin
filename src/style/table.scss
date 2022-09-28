@@ -1,0 +1,30 @@
+//
+.el-table {
+  .el-table__header {
+    height: 57px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+
+    // table {
+    // thead {
+    .el-table__cell {
+      background: #fafafa;
+      color: #2b2c2e;
+      border-bottom: 0 !important;
+      // }
+      // }
+    }
+
+    .el-table-fixed-column--right {
+      background: #fafafa !important;
+      color: #2b2c2e;
+    }
+  }
+
+  .el-table__row {
+    .el-table__cell {
+      padding: 20px 0;
+    }
+  }
+}

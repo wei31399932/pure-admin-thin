@@ -19,6 +19,7 @@ const homeRouter: RouteConfigsTable = {
       component: () => import("/@/views/welcome/index.vue"),
       meta: {
         title: $t("menus.hshome")
+        // showLink: false
       }
     }
   ]

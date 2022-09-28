@@ -21,3 +21,8 @@ export default defineComponent({
   }
 });
 </script>
+
+<style lang="scss">
+// element-ui 表格默认样式设置
+@import "src/style/table.scss";
+</style>

@@ -12,11 +12,11 @@ const router = useRouter();
 const routes: any = router.options.routes;
 const multiTags: any = useMultiTagsStoreHook().multiTags;
 
-const isDashboard = (route: RouteLocationMatched): boolean | string => {
-  const name = route && (route.name as string);
-  if (!name) return false;
-  return name.trim().toLocaleLowerCase() === "Welcome".toLocaleLowerCase();
-};
+// const isDashboard = (route: RouteLocationMatched): boolean | string => {
+//   const name = route && (route.name as string);
+//   if (!name) return false;
+//   return name.trim().toLocaleLowerCase() === "Welcome".toLocaleLowerCase();
+// };
 
 const getBreadcrumb = (): void => {
   // 当前路由信息
@@ -48,15 +48,15 @@ const getBreadcrumb = (): void => {
 
   if (currentRoute?.path !== "/welcome") matched.push(currentRoute);
 
-  if (!isDashboard(matched[0])) {
-    matched = [
-      {
-        path: "/welcome",
-        parentPath: "/",
-        meta: { title: "menus.hshome" }
-      } as unknown as RouteLocationMatched
-    ].concat(matched);
-  }
+  // if (!isDashboard(matched[0])) {
+  //   matched = [
+  //     {
+  //       path: "/welcome",
+  //       parentPath: "/",
+  //       meta: { title: "menus.hshome" }
+  //     } as unknown as RouteLocationMatched
+  //   ].concat(matched);
+  // }
 
   matched.forEach((item, index) => {
     if (currentRoute?.query || currentRoute?.params) return;
@@ -93,16 +93,42 @@ watch(
     getBreadcrumb();
   }
 );
+
+const isCollapse = ref<number>(0);
 </script>
 
 <template>
-  <el-breadcrumb class="!leading-[50px] select-none" separator="/">
-    <transition-group appear name="breadcrumb">
-      <el-breadcrumb-item v-for="item in levelList" :key="item.path">
-        <a @click.prevent="handleLink(item)">
-          {{ transformI18n(item.meta.title) }}
-        </a>
-      </el-breadcrumb-item>
-    </transition-group>
-  </el-breadcrumb>
+  <div class="breadcrumb_box">
+    <el-breadcrumb class="!leading-[65px] select-none" separator="/">
+      <transition-group appear name="breadcrumb">
+        <el-breadcrumb-item v-for="item in levelList" :key="item.path">
+          <a @click.prevent="handleLink(item)">
+            {{ transformI18n(item.meta.title) }}
+          </a>
+        </el-breadcrumb-item>
+      </transition-group>
+    </el-breadcrumb>
+    <div class="multiple_choice">
+      <el-radio-group v-model="isCollapse">
+        <el-radio-button :label="0">我的任务</el-radio-button>
+        <el-radio-button :label="1">我的分配</el-radio-button>
+        <el-radio-button :label="2">我的主管</el-radio-button>
+        <el-radio-button :label="3">我的工作</el-radio-button>
+      </el-radio-group>
+    </div>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.breadcrumb_box {
+  display: flex;
+
+  .el-breadcrumb {
+    margin-right: 50px;
+  }
+
+  .multiple_choice {
+    display: flex;
+  }
+}
+</style>

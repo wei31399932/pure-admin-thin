@@ -18,8 +18,13 @@ const { title } = useNav();
         class="sidebar-logo-link"
         to="/"
       >
-        <FontIcon icon="team-iconlogo" svg style="width: 35px; height: 35px" />
-        <span class="sidebar-title">{{ title }}</span>
+        <div class="flex-box">
+          <FontIcon
+            icon="team-iconlogo"
+            svg
+            style="width: 35px; height: 35px"
+          />
+        </div>
       </router-link>
       <router-link
         v-else
@@ -28,8 +33,16 @@ const { title } = useNav();
         class="sidebar-logo-link"
         to="/"
       >
-        <FontIcon icon="team-iconlogo" svg style="width: 35px; height: 35px" />
-        <span class="sidebar-title">{{ title }}</span>
+        <div class="flex-box">
+          <FontIcon
+            icon="team-iconlogo"
+            svg
+            style="width: 35px; height: 35px"
+          />
+        </div>
+        <div class="flex-box">
+          <span class="sidebar-title">{{ title }}</span>
+        </div>
       </router-link>
     </transition>
   </div>
@@ -39,7 +52,7 @@ const { title } = useNav();
 .sidebar-logo-container {
   position: relative;
   width: 100%;
-  height: 48px;
+  height: 66px;
   text-align: center;
   overflow: hidden;
 
@@ -48,13 +61,13 @@ const { title } = useNav();
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin-top: 5px;
+    // margin-top: 5px;
 
     .sidebar-title {
       color: #1890ff;
       font-weight: 600;
       font-size: 20px;
-      margin-top: 10px;
+      // margin-top: 10px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
     }
   }
@@ -64,5 +77,11 @@ const { title } = useNav();
       margin-right: 0;
     }
   }
+}
+
+.flex-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
