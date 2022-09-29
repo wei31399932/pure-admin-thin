@@ -19,6 +19,14 @@ const clientRouter: RouteConfigsTable = {
       meta: {
         title: "客户主页"
       }
+    },
+    {
+      path: "/prospectiveCustomer",
+      name: "ProspectiveCustomer",
+      component: () => import("/@/views/client/prospectiveCustomer/index.vue"),
+      meta: {
+        title: "潜在客户"
+      }
     }
   ]
 };
