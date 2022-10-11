@@ -4,7 +4,7 @@
       v-for="(item, index) in stepArray"
       :key="index"
       class="step_item"
-      :class="{ highlight: scheduleIndex >= index }"
+      :class="{ highlight: stepIndex >= index }"
     >
       <div class="step_number">{{ index + 1 }}</div>
       <div class="step_name">{{ item.stepName }}</div>
@@ -13,29 +13,43 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { useAttrs, defineProps, PropType } from "vue";
 interface stepData {
   stepName: string;
 }
 
-interface PropsType {
-  stepArray: stepData[];
-}
+// interface PropsType {
+//   stepArray: stepData[];
+// }
 
-const props = withDefaults(defineProps<PropsType>(), {
-  stepArray: () => {
-    return [];
+const props = defineProps({
+  stepArray: {
+    type: Array as PropType<stepData[]>,
+    default() {
+      return [];
+    }
+  },
+  stepIndex: {
+    type: Number,
+    required: true
   }
 });
+// import { inject } from "vue";
 
-const scheduleIndex = ref(0);
+// const stepArray = inject("stepArray") as stepData[];
+// const scheduleIndex = inject("scheduleIndex") as number;
 
-console.log("props", props);
+console.log("scheduleIndex", props.stepIndex);
+
+const attrs = useAttrs();
+console.log("newattrs", attrs);
 </script>
 
 <style lang="scss">
 .step_box {
   display: flex;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e7e7e7;
 
   .step_item {
     display: flex;

@@ -3,26 +3,48 @@
     <template #header>
       {{ $attrs.title }}
     </template>
-    <steps :stepArray="($attrs.stepArray as any)" />
+    <steps :stepArray="stepArray" :stepIndex="stepIndex" />
     <slot />
-    <template
-      #[item]="data"
-      v-for="item in Object.keys(omit($slots, 'default'))"
-    >
-      <slot :name="item" v-bind="data || {}" />
+    <template #footer>
+      <el-button v-if="stepIndex > 0" @click="lastStep">上一步</el-button>
+      <el-button v-if="stepArray.length - 1 > stepIndex" @click="nextStep"
+        >下一步</el-button
+      >
+      <el-button v-if="stepArray.length - 1 === stepIndex">创建</el-button>
     </template>
   </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { omit } from "lodash-es";
-import { useAttrs, useSlots } from "vue";
+// import { clone } from "lodash-es";
+import { defineEmits, defineProps, PropType } from "vue";
 import steps from "./steps.vue";
+interface Emits {
+  (e: "update:stepIndex", val: number): void;
+}
 
-const attrs = useAttrs();
-const slots = useSlots();
-console.log("attrs", attrs);
-console.log("slots", slots);
+const emit = defineEmits<Emits>();
+const props = defineProps({
+  stepIndex: {
+    type: Number
+  },
+  stepArray: {
+    type: Array as PropType<any[]>
+  },
+  rulesExamine: {
+    type: Function
+  }
+});
+
+const nextStep = () => {
+  console.log("props.rulesExamine", props.rulesExamine());
+
+  props.rulesExamine() && emit("update:stepIndex", props.stepIndex + 1);
+};
+
+const lastStep = () => {
+  emit("update:stepIndex", props.stepIndex - 1);
+};
 </script>
 
 <style lang="scss">
